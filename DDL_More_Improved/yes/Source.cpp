@@ -14,7 +14,6 @@ private:
 	node* tail;
 public:
 	List() { head = NULL; tail = NULL; }
-
 	node* Get_Head() { return head; }
 	node* Get_Tail() { return tail; }
 
@@ -28,6 +27,8 @@ public:
 	int Get_Length();
 	int Sum_Of_Nodes_Forward();
 	int Sum_Of_Nodes_Reverse();
+	int Max_Node();
+	int Min_Node();
 	bool Is_Sorted();
 	void Reverse_List();	
 	void Delete_Head();
@@ -40,7 +41,6 @@ public:
 	void Display_Reverse_Recursive(node* temp);
 	void Display_Forward_Recursive(node* temp);
 };
-
 bool List::Empty_List()
 {
 	if (head == NULL)
@@ -182,7 +182,34 @@ int List::Sum_Of_Nodes_Reverse()
 	}
 	return total;
 }
-
+int List::Max_Node()
+{
+	if (Empty_List())
+		return NULL;
+	node* temp = head;
+	int max{};	
+	while (temp != NULL)
+	{		
+		if (max < temp->data)
+			max = temp->data;
+		temp = temp->next;
+	}
+	return max;
+}
+int List::Min_Node()
+{
+	if (Empty_List())
+		return NULL;
+	node* temp = head;
+	int min = Max_Node();
+	while (temp != NULL)
+	{
+		if (temp->data < min)
+			min = temp->data;
+		temp = temp->next;		
+	}
+	return min;
+}
 bool List::Is_Sorted()
 {
 	if (Empty_List())
@@ -382,26 +409,28 @@ int main()
 	list.Insert_At_Front(10);
 	list.Insert_At_End(60);	
 	list.Insert_Middle(77);	
-	list.Reverse_List();	
-
-	list.Delete_Middle();
+	//list.Reverse_List();	
 	list.Insert_After_Head(15);
-	list.Delete_Head();
-	list.Delete_Tail();
-	list.Delete_Position(2);
-	list.Delete_Key(40);
-	list.Delete_Key(30);	
-
+	//list.Delete_Middle();	
+	//list.Delete_Head();
+	//list.Delete_Tail();
+	//list.Delete_Position(2);
+	//list.Delete_Key(40);
+	//list.Delete_Key(30);
 	list.Display_Forward();
 	list.Display_Reverse();	
 	list.Display_Reverse_Recursive(list.Get_Head());
 	cout << endl;
 	list.Display_Forward_Recursive(list.Get_Head());
 	
-	cout << "\nIs list sorted ascending?  " << boolalpha << list.Is_Sorted() << endl;
+	cout << "\nIs list sorted ascending?  " << boolalpha
+		<< list.Is_Sorted() << endl;
 
-	
-	
+	cout << "\nMAX = " << list.Max_Node();
+	cout << "\nMIN = " << list.Min_Node();
+
+	cout << "\nHEAD is " << list.Get_Head()->data;
+	cout << "\nTAIL is " << list.Get_Tail()->data;	
 	
 
 	cout << endl;
